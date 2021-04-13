@@ -1,36 +1,78 @@
 		//merge sort
 #include<stdio.h>
+void Merge(int a[],int left, int mid,int right )
+{
+	int i,j,k;
+	int size1=mid-left+1;
+	int size2=right -mid;
+	
+	int LeftArray[size1],RightArray[size2]; 		
+	
+	for(i=0;i<size1;i++)
+		LeftArray[i]=a[left+i];
+	
+	for(j=0;j<size2;j++)
+		RightArray[j]=a[mid+1+j];
+	
+	i=0,j=0,k=left; 			
+	while(i<size1 && j<size2)
+	{
+			if(LeftArray[i]<=RightArray[j])
+			{a[k]=LeftArray[i];
+			i++;
+			}
+			else
+			{a[k]=RightArray[j];
+			j++;
+			}
+			k++;
+		
+	}
+
+
+
+	while(i<size1)
+	{
+		a[k]=LeftArray[i];
+		i++;
+		k++;
+	}
+	
+	while(j<size2)
+	{	
+		a[k]=RightArray[j];
+		k++;
+		j++;
+	}
+}
+
+void Mergesort(int a[],int left,int right)
+{
+	if(left<right)
+	{
+		int mid=(left+(right-1))/2;   
+		Mergesort(a,left,mid);
+		Mergesort(a,mid+1,right);
+		Merge(a,left,mid,right);
+	}
+}
+
+
 int main()
 {
-	int arr1[20],arr2[20],arr3[40];
-	int i,j,k;
-	int max1,max2;
-	printf("limit of list1 and list2:\n");
-	scanf("%d%d",&max1,&max2);
-	printf("elements in list1 in sorted order:\n");
-	for(i=0;i<max1;i++)
-		scanf("%d",&arr1[i]);
-	printf("elements in list2 in sorted order:\n");
-	for(i=0;i<max2;i++)
-		scanf("%d",&arr2[i]);
-	i=0;
-	j=0;
-	k=0;
-	while((i<max1)&&(j<max2))
-	{
-		if(arr1[i]<arr2[j])
-			arr3[k++]=arr1[i++];
-		else
-			arr3[k++]=arr2[j++];
-	}
-	while(i<max1)
-		arr3[k++]=arr1[i++];
-	while(j<max2)
-		arr3[k++]=arr2[j++];
-	printf("sorted array:\n");
-	for(i=0;i<max1+max2;i++)
-	{
-		printf("%d ",arr3[i]);
-	}
-	return 0;
+ int a[100];
+ int i;
+ int n;
+ printf("Enter the number of elements you want to enter ");
+ scanf("%d", &n);
+ printf("Enter %d elements into the array \n", n);
+ 
+ for(i=0;i<n;i++)
+	scanf("%d",&a[i]);
+ Mergesort(a,0,n-1); //Calling Mergesort function
+	
+printf("\nSorted array is : ");
+ 	for(i=0;i<n;i++)
+ 	printf("  %d  ",a[i]);	
+	 return 0;
 }
