@@ -29,8 +29,6 @@ void Merge(int a[],int left, int mid,int right )
 		
 	}
 
-
-
 	while(i<size1)
 	{
 		a[k]=LeftArray[i];
